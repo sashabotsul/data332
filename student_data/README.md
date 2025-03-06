@@ -5,7 +5,7 @@
 <p>  </p>
 
 ## Students per Birth Year
-<img src= "birth_years.png" height = 600, width=1000>
+<img src= "birth_years1.png">
 
 <p> Put some words in here and display a picture </p>
 
