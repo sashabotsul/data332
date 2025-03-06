@@ -21,5 +21,5 @@
 <img src= "balance_due_by_major.png">
 
 ## Comparing Total Cost and Balance Due by Major
-<img src= "comparison_cost_and_balance.png">
+<img src= "comparison.png">
 
