@@ -1,6 +1,7 @@
-# Practice with my Read Me File 
-## Write something
-<p> Put some words in here and display a picture </p>
+# Analysis of student data
+
+## Number of Student per Major
+<p>  </p>
 
 ### Something
 
