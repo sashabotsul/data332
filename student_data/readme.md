@@ -1,6 +1,7 @@
 # Analysis of student data
 
 ## Number of Student per Major
+<img src= "number_of_students_per_major.png"
 <p>  </p>
 
 ### Something
