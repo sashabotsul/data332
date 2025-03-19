@@ -116,10 +116,15 @@ df_token2 <- df_clean2 %>%
   unnest_tokens(word, text)%>%
   anti_join(stop_words, by = 'word')
 ```
-<img src= 'trends_of_emotion.png'>
+<img src= 'trend_by_emotion.png'>
 
 - This chart shows the proportion of emotions in consumer complaints by months.
 - It seems that the data increases significantly during the middle of the year, likely reflecting the number of complaints.
 - That is also when we see the negative sentiments increase.
 - Overall, the proportions of emotions stay relatively stable; as the whole count increases, the proportions stay similar.
-- 
+- This chart is valuable because it helps understand how sentiments change throughout the year, and if there is a significant outlier in one of the months.
+
+---
+## Conclusion
+- There seems to be a significant among of complaints relating to debt.
+- Despite majority negative sentiments, based in bing analysis, there is nothing concerning when viewing the nrc sentiment analysis.
