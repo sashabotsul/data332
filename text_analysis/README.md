@@ -75,7 +75,51 @@ df_token <- df_clean %>%
 - Looking at the positive words, it is likely that in context, they are not positive.
 - This chart is valuable because it shows what the complaints are when looking at the top 10 negative words. An analyst can deduct that many complaints are related to consumers debt, fraud issues, potentially denied requests, etc.
 
-  
+3. Positive and Negative Sentiments by Company
+- First, the data needed to be adjusted to include the companies.
+```
+df_clean3 <- df_complaints %>%
+  select(Consumer.complaint.narrative, Company) %>%
+  filter(Consumer.complaint.narrative != 'Unknown')%>%
+  rename(text = 'Consumer.complaint.narrative')
 
+df_token3 <- df_clean3 %>%
+  unnest_tokens(word, text)%>%
+  anti_join(stop_words, by = 'word')
+```
+<img src= 'by_company.png'>
 
+- This chart shows the top 10 companies by positive and top 10 companies by negative sentiment.
+- The company with the most negative sentiments is Equifax.
+- What is surprising is that most of the banks are top 10 for both positive and negative, except for Capital One and U.S. Bancorp.
+- This chart is valuable because is shows what companies are experiencing the most negative sentiments, which likely reflects how many people are sending in complaints.
 
+## Text Analysis Using NRC
+
+1. Sentiment Analysis
+<img src = 'nrc_emotions.png'>
+
+- This chart shows the proportions of emotions in consumer complaints.
+- Very surprisingly, the graph shows that there were more positive sentiments than other emotions.
+- Although disgust is the lowest, which should be relieving, it is still a high count of 119,408.
+- This chart is valuable because it helps clarify the majority of emotions. If anger was the highest, companies should be concerned.
+
+2. Emotions by Month
+- First, the data needed to be adjusted to include the date.
+```
+df_clean2 <- df_complaints %>%
+  select(Consumer.complaint.narrative, Date.sent.to.company) %>%
+  filter(Consumer.complaint.narrative != 'Unknown')%>%
+  rename(text = 'Consumer.complaint.narrative')
+
+df_token2 <- df_clean2 %>%
+  unnest_tokens(word, text)%>%
+  anti_join(stop_words, by = 'word')
+```
+<img src= 'trends_of_emotion.png'>
+
+- This chart shows the proportion of emotions in consumer complaints by months.
+- It seems that the data increases significantly during the middle of the year, likely reflecting the number of complaints.
+- That is also when we see the negative sentiments increase.
+- Overall, the proportions of emotions stay relatively stable; as the whole count increases, the proportions stay similar.
+- 
