@@ -28,6 +28,7 @@ nrc_sentiment <- df_token %>%
   inner_join(get_sentiments('nrc'))%>%
   count(sentiment, sort=TRUE)
 
+#plotting sentiment analysis
 ggplot(nrc_sentiment, aes(x= reorder(sentiment, -n), y=n, fill=sentiment))+
   geom_bar(stat='identity')+
   coord_flip()+
@@ -47,6 +48,7 @@ df_token2 <- df_clean2 %>%
   unnest_tokens(word, text)%>%
   anti_join(stop_words, by = 'word')
 
+#splitting the date to get the month
 df_token2[c('year', 'month', 'day')]<-
   str_split_fixed(df_token2$Date.sent.to.company, '-', 3)
 
@@ -54,6 +56,7 @@ df_emotions <- df_token2%>%
   inner_join(get_sentiments('nrc'))%>%
   count(month, sentiment)
 
+#plotting emotions by month
 ggplot(df_emotions, aes(x= month, y=n, fill= sentiment))+
   geom_bar(stat= 'identity')+
   theme_minimal()+
