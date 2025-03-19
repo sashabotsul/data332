@@ -59,7 +59,7 @@ ggplot(df_emotions, aes(x= month, y=n, fill= sentiment))+
   theme_minimal()+
   labs(title= 'Trends of Emotion by Month',
        x = 'Month',
-       y= 'Word Count')+
+       y= 'Count')+
   scale_y_continuous(labels = comma_format()) +
   geom_text(aes(label = n), position = position_stack(vjust = .5), size = 1.75, color = "black") +
   scale_fill_brewer(palette= 'Paired')
