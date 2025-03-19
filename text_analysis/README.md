@@ -58,16 +58,24 @@ df_token <- df_clean %>%
 ```
 ---
 ## Text Analysis Using BING
+
 1. Sentiment Analysis
 <img src= 'bing_count.png'>
+
 - This bar chart shows the proportion of negative and positive sentiments.
 - Considering the data is consumer complaints, the results are not shocking.
 - The negative sentiment count is 543,382. The positive sentiment count is 188,536.
 - This chart is valuable as it shows the overall sentiments of consumers among banks.
 
 2. Common Positive and Negative Words
-<img src = 'positive/negative.png'>
+<img src = 'positive_negative.png'>
 
+- This chart shows the 10 most common positive and negative words and their contribution to sentiment.
+- 'Debt' is by far the most common word, being used 61,703 times.
+- Looking at the positive words, it is likely that in context, they are not positive.
+- This chart is valuable because it shows what the complaints are when looking at the top 10 negative words. An analyst can deduct that many complaints are related to consumers debt, fraud issues, potentially denied requests, etc.
+
+  
 
 
 
