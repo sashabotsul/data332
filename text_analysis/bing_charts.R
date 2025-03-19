@@ -30,7 +30,7 @@ bing_sentiment <- df_token %>%
   inner_join(get_sentiments('bing'), by = 'word')%>%
   count(sentiment, sort= TRUE)
 
-  
+#plotting sentiment analysis  
 ggplot(bing_sentiment, aes(x= sentiment, y= n, fill = sentiment))+
   geom_bar(stat = 'identity')+
   scale_y_continuous(labels = comma_format()) +
@@ -60,7 +60,7 @@ bing_words %>%
        y=NULL)
 
 #positive and negative sentiments by company
-
+#adjusting clean data to include company
 df_clean3 <- df_complaints %>%
   select(Consumer.complaint.narrative, Company) %>%
   filter(Consumer.complaint.narrative != 'Unknown')%>%
