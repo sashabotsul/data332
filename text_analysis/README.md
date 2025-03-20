@@ -6,7 +6,7 @@
 ---
 ## Data Cleaning
 1. Date Format
-- Convert the Date Received and Date sent to Compant to a proper format
+- Convert the Date Received and Date sent to Company to a proper format
 ```
 df_complaints$Date.received <- mdy(df_complaints$Date.received)
 df_complaints$Date.sent.to.company <- mdy(df_complaints$Date.sent.to.company)
