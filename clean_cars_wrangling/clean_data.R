@@ -107,7 +107,7 @@ combined_data$date <- ifelse(
 
 combined_data$date <- ifelse(
   grepl("^\\d{1,2}/\\d{1,2}/\\d{2}$", combined_data$date),
-  # If the year has 2 digits, prepend '20' to make it a 4-digit year
+  # If the year has 2 digits, add '20' to make it a 4-digit year
   gsub("(\\d{1,2}/\\d{1,2})/(\\d{2})", "\\1/20\\2", combined_data$date),
   combined_data$date
 )
