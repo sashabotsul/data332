@@ -10,9 +10,6 @@ library(janitor)
 library(tools)
 library(readr)  
 
-
-
-
 setwd('/Users/sashabotsul/Downloads/rstudio/counting_cars/csv_files')
 
 data1<- read.csv('Car Data Collection.csv')
@@ -21,7 +18,7 @@ data3<- read.csv('counting_cars_final.csv')
 data4<- read.csv('Counting_Cars.csv')
 data5<- read.csv('Data_Counting_Cars.csv')
 data6<- read.csv('speed_counting_cars1.csv')
-data7<- read.csv()
+data7<- read.csv('carTracker.csv')
 
 car_types <- c(
   "1" = "Emergency",
@@ -38,10 +35,10 @@ car_types <- c(
 data4$Type_of_Car <- car_types[as.character(data4$Type_of_Car)]
 
 
-combined_data <-bind_rows(data1, data2, data3, data4, data5, data6)
+combined_data <-bind_rows(data1, data2, data3, data4, data5, data6, data7)
 combined_data <- clean_names(combined_data)
 combined_data <- combined_data %>%
-  select(-c(1, 4, 6, 7, 9,14, 15,18,21, 22, 29, 30, 31, 32, 33, 34, 37, 42,43, 44, 45))
+  select(-c(1, 4, 6, 7, 9,14, 15,18,21, 22, 29, 30, 31, 32, 33, 34, 37, 42,43, 44, 45, 47, 49, 50))
 
 names(combined_data)
 
@@ -53,31 +50,33 @@ combined_data <- combined_data %>%
                        as.character(vehicle_style), 
                        as.character(vehicle_type), 
                        as.character(body_style)
-                       ),
+    ),
     initial = coalesce(as.numeric(initial_speed), 
-                             as.numeric(initial_read), 
-                             as.numeric(init_speed)
-                             ),
+                       as.numeric(initial_read), 
+                       as.numeric(init_speed)
+    ),
     final = coalesce(as.numeric(final_speed), 
-                           as.numeric(final_read), 
-                           as.numeric(final_speed_2), 
-                           as.numeric(mph), 
-                           as.numeric(speed), 
-                           as.numeric(speed_mph)
-                           ),
+                     as.numeric(final_read), 
+                     as.numeric(final_speed_2), 
+                     as.numeric(mph), 
+                     as.numeric(speed), 
+                     as.numeric(speed_mph),
+                     as.numeric(mph_2)
+    ),
     times = coalesce(as.character(time_of_the_day), 
-                    as.character(hr_min), 
-                    as.character(time_recorded), 
-                    as.character(time)
-                    ),
+                     as.character(hr_min), 
+                     as.character(time_recorded), 
+                     as.character(time),
+                     as.character(time_tracked)
+    ),
     dates = coalesce(as.character(date), 
-                    as.character(date_2), 
-                    as.character(date_recorded)
-                    ),
+                     as.character(date_2), 
+                     as.character(date_recorded)
+    ),
     differences = coalesce(as.numeric(difference), 
-                          as.numeric(difference_in_readings), 
-                          as.numeric(speed_change)
-                          )
+                           as.numeric(difference_in_readings), 
+                           as.numeric(speed_change)
+    )
   )
 #keep only combined
 combined_data <- combined_data %>%
@@ -129,10 +128,10 @@ combined_data$time <- ifelse(
 )
 
 combined_data$time <- ifelse(grepl(":", combined_data$time) & grepl("\\d{2}:\\d{2}:\\d{2}", combined_data$time),
-                           format(strptime(combined_data$time, format = "%H:%M:%S"), format = "%H:%M"),
-                           ifelse(grepl("\\d{1}:\\d{2}:\\d{2}", combined_data$time),
-                                  format(strptime(combined_data$time, format = "%H:%M:%S"), format = "%H:%M"),
-                                  combined_data$time))
+                             format(strptime(combined_data$time, format = "%H:%M:%S"), format = "%H:%M"),
+                             ifelse(grepl("\\d{1}:\\d{2}:\\d{2}", combined_data$time),
+                                    format(strptime(combined_data$time, format = "%H:%M:%S"), format = "%H:%M"),
+                                    combined_data$time))
 
 
 #apply changes to official dates column
