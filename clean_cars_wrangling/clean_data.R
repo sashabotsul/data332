@@ -147,6 +147,10 @@ combined_data$vehicles <- gsub("_", " ", combined_data$vehicles)
 
 combined_data$vehicles<- toTitleCase(combined_data$vehicles)
 
+combined_data <- combined_data %>%
+  mutate(vehicles = ifelse(vehicles == "Suv", "SUV", vehicles))
+
+
 #apply changes to official dates column
 combined_data$vehicle<- combined_data$vehicles
 #remove additional vehicle column
