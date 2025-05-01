@@ -51,7 +51,15 @@
    "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM",
    "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM")
    ```
-4. Set the Colors for Hours
+4. Ordering Months for Pivot Tables
+   ```
+   ordered_months <- c('April', 'May', 'June', 'July', 'August', 'September')
+   ```
+5. Ordering Weekdays for Pivot Tables
+   ```
+   ordered_days <- c('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+   ```
+6. Set the Colors for Hours
    ```
    hour_colors <- viridis(24, option = 'D')
    ```
@@ -83,6 +91,7 @@ theme(legend.position = "none")
 trips_by_hour_month <- data %>%
   group_by(month_name, hour_am_pm)%>%
   summarize(count= n())
+trips_by_hour_month$month_name <- factor(trips_by_hour_month$month_name, levels = ordered_months)
 trips_by_hour_month$hour_am_pm <- factor(trips_by_hour_month$hour_am_pm, levels = ordered_hours)
 ```
 - Chart
@@ -98,6 +107,7 @@ ggplot(trips_by_hour_month, aes(x=month_name, y=count, fill=hour_am_pm))+
 3. Trips by Day of the Month
 - Pivot
 ```
+dataset$month_name <- factor(dataset$month_name, levels = ordered_months)
 trips_per_day <- data %>%
   group_by(month_name, day)%>%
   summarize(count = n(), .groups = 'drop')%>%
@@ -113,6 +123,8 @@ trips_per_day <- data %>%
 trips_by_day_month <- data %>%
   group_by(month_name, weekday_name)%>%
   summarize(count = n())
+trips_by_day_month$month_name <- factor(trips_by_day_month$month_name, levels = ordered_months)
+trips_by_day_month$weekday_name <- factor(trips_by_day_month$weekday_name, levels = ordered_days)
 ```
 - Chart
 ```
@@ -130,6 +142,7 @@ ggplot(trips_by_day_month, aes(x=month_name, y=count, fill=weekday_name))+
 trips_by_bases <- data %>%
   group_by(base, month_name)%>%
   summarize(count =n())
+trips_by_bases$month_name <- factor(trips_by_bases$month_name, levels = ordered_months)
 ```
 - Chart
 ```
@@ -169,6 +182,7 @@ ggplot(heat_hour_day, aes(x=day, y=hour_am_pm, fill=count))+
 heat_month_day<- data %>%
   group_by(month_name, day)%>%
   summarize(count = n())
+heat_month_day$month_name <- factor(heat_month_day$month_name, levels = ordered_months)
 ```
 - Heat Map
 ```
@@ -188,6 +202,7 @@ ggplot(heat_month_day, aes(x=month_name, y=day, fill=count))+
 heat_month_week<- data%>%
   group_by(month_name, week_of_month)%>%
   summarize(count = n())
+heat_month_week$month_name <- factor(heat_month_week$month_name, levels = ordered_months)
 ```
 - Heat Map
 ```
@@ -206,6 +221,7 @@ ggplot(heat_month_week, aes(x=month_name, y=week_of_month, fill=count))+
 heat_bases_day <- data%>%
   group_by(base, weekday_name)%>%
   summarize(count = n())
+heat_bases_day$weekday_name <- factor(heat_bases_day$weekday_name, levels = ordered_days)
 ```
 - Heat Map
 ```
@@ -219,6 +235,26 @@ ggplot(heat_bases_day, aes(x=base, y=weekday_name, fill=count))+
   theme_minimal()
 ```
 ## Leaflet
+```
+output$map <- renderLeaflet({
+    leaflet(data = dataset) %>%
+      addProviderTiles(providers$OpenStreetMap) %>%
+      addHeatmap(
+        lng= ~lon,
+        lat = ~lat,
+        blur = 20,
+        max = 0.05,
+        radius = 15,
+        gradient = viridis(256)
+      ) %>%
+      addLegend(
+        position = 'bottomright',
+        title = 'Trip Density',
+        colors = viridis::viridis(4),
+        labels = c('Low', 'Medium', 'High', 'Very High'),
+        opacity = 0.5
+      )
+```
 
 
      
